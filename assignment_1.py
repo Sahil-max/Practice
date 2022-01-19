@@ -46,7 +46,7 @@ if __name__ == '__main__':
     t2_df.printSchema()
     t2_df.show(5, False)
 
-    spark - submit - -master yarn - -packages "org.apache.hadoop:hadoop-aws:2.7.4" dataframe / ingestion / rdd / rdd2df_thru_explicit_schema.py
+    spark-submit - -master yarn --packages "org.apache.hadoop:hadoop-aws:2.7.4" assignment_1.py
 
 
     #print("\nConvert RDD to Dataframe using SparkSession.createDataframe(),")
