@@ -24,7 +24,7 @@ if __name__ == '__main__':
         .drop('temp_col')
     df2.show()
 
-    df1.join(df2, df1['rn'] == df2['rn']).show()
+    df1.join(df2, df1['rn'] == df2['rn']).drop('rn').show()
 
 # spark-submit assignment_1.py
 
