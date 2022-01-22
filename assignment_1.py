@@ -1,4 +1,5 @@
 from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
 import os.path
 import yaml
 
@@ -12,12 +13,13 @@ if __name__ == '__main__':
     spark.sparkContext.setLogLevel("ERROR")
     current_dir = os.path.abspath(os.path.dirname(__file__))
 
-    df1 = spark.sparkContext.parallelize([1, 2, 3, 4, 5]).map(lambda rec: (rec, )).toDF(["c1"])
+    df1 = spark.sparkContext.parallelize([1, 2, 3, 4, 5]).map(lambda rec: (rec, )).toDF(["c1"]) \
+        .withColumn('rn', row_number())
     df1.show()
     df2 = spark.sparkContext.parallelize([3, 4, 5]).map(lambda rec: (rec, )).toDF(["c1"])
     df2.show()
 
-    df1.join(df2, df1['c1'] == df2['c1']).show()
+    # df1.join(df2, df1['c1'] == df2['c1']).show()
 
 # spark-submit assignment_1.py
 
