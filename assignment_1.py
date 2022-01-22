@@ -15,12 +15,16 @@ if __name__ == '__main__':
 
     df1 = spark.sparkContext.parallelize([1, 2, 3, 4, 5]).map(lambda rec: (rec, )).toDF(["c1"]) \
         .withColumn('temp_col', lit('abc')) \
-        .withColumn('rn', row_number().over(Window.orderBy('temp_col')))
+        .withColumn('rn', row_number().over(Window.orderBy('temp_col'))) \
+        .drop('temp_col')
     df1.show()
-    df2 = spark.sparkContext.parallelize([3, 4, 5]).map(lambda rec: (rec, )).toDF(["c1"])
+    df2 = spark.sparkContext.parallelize([3, 4, 5]).map(lambda rec: (rec, )).toDF(["c1"]) \
+        .withColumn('temp_col', lit('abc')) \
+        .withColumn('rn', row_number().over(Window.orderBy('temp_col'))) \
+        .drop('temp_col')
     df2.show()
 
-    # df1.join(df2, df1['c1'] == df2['c1']).show()
+    df1.join(df2, df1['rn'] == df2['rn']).show()
 
 # spark-submit assignment_1.py
 
